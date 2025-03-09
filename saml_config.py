@@ -9,7 +9,7 @@ CERTIFICATE_PATH = os.path.join(SERVER_BASEDIR, "app", "kulcs.crt")
 
 # SAML szerver konfiguráció
 SERVER_CONFIG = {
-    "entityid": 'http://localhost:3000/saml2/metadata/',  # Az entitás azonosító URL-je
+    "entityid": 'http://192.168.101.60:3000/saml2/metadata/',  # Az entitás azonosító URL-je
     'metadata': {
         'remote': [{"url": "https://s3.eduid.hu/href-2020/sze.xml"}],  # Távoli metadata URL
     },
@@ -20,12 +20,12 @@ SERVER_CONFIG = {
             'endpoints': {
                 # ACS (Assertion Consumer Service) endpointok
                 'assertion_consumer_service': [
-                    ('http://localhost:3000/saml2/acs/', saml2.BINDING_HTTP_REDIRECT),
-                    ('http://localhost:3000/saml2/acs/', saml2.BINDING_HTTP_POST),
+                    ('http://192.168.101.60:3000/saml2/acs/', saml2.BINDING_HTTP_REDIRECT),
+                    ('http://192.168.101.60:3000/saml2/acs/', saml2.BINDING_HTTP_POST),
                 ],
                 # Single Logout Service (SLO) endpoint
                 'single_logout_service': [
-                    ('http://localhost:3000/saml2/ls/', saml2.BINDING_HTTP_REDIRECT),
+                    ('http://192.168.101.60:3000/saml2/ls/', saml2.BINDING_HTTP_REDIRECT),
                 ],
             },
             'allow_unsolicited': True,  # Nem kívánt SAML üzenetek engedélyezése

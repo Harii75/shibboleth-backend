@@ -40,4 +40,5 @@ COPY kulcs.key /app/kulcs.key
 EXPOSE 3000
 
 # Run application using Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:3000", "saml_gunicorn:app"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:3000", "--certfile=/app/kulcs.crt", "--keyfile=/app/kulcs.key", "saml_gunicorn:app"]
+

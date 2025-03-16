@@ -27,7 +27,7 @@ class ServiceServer:
 
         # Initialize Flask app with CORS enabled for frontend
         self.app = Flask(__name__)
-        CORS(self.app, resources={r"/*": {"origins": "http://localhost:5173"}})
+        CORS(self.app, resources={r"/*": {"origins": ["http://192.168.101.60:5173", "https://192.168.101.60"]}})
 
         # Initialize SAML2 client
         self.saml_client = self.initialize_saml_client()
@@ -85,11 +85,12 @@ class ServiceServer:
 
                 # Return JSON response instead of redirect
                 response = jsonify({"token": token})
-                response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173")
+                response.headers.add("Access-Control-Allow-Origin", "https://192.168.101.60")
                 response.headers.add("Access-Control-Allow-Credentials", "true")
-                return response
-
-            return jsonify({"error": "Authentication failed"}), 401
+                print(response)
+                return redirect(f"https://192.168.101.60/entry?token={token}")
+            else:
+                return "Authentication failed", 401
 
         @self.app.route('/login')
         def login():
@@ -102,3 +103,4 @@ class ServiceServer:
                     return jsonify({"redirect_url": value})
 
             return jsonify({"error": "No Location header found"}), 400
+
